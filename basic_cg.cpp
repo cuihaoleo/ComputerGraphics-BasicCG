@@ -23,7 +23,7 @@ GrayImage::~GrayImage()
     delete[] data;
 }
 
-QImage GrayImage::toQImage() {
+QImage GrayImage::toQImage() const {
     QImage qi(width, height, QImage::Format_Grayscale8);
 
     for (size_t i=0; i<height; i++) {

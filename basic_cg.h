@@ -20,7 +20,12 @@ public:
         setPixel(x, y, 0);
     }
 
-    QImage toQImage();
+    QImage toQImage() const;
 };
+
+// Line-drawing algorithm
+void lineBresenham(GrayImage &im, int xa, int ya, int xb, int yb);
+// Circle-drawing algorithm
+void circleMidpoint(GrayImage &im, int cx, int cy, int radius);
 
 #endif // BASIC_CG_H
