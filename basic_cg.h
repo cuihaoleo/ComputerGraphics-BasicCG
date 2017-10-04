@@ -9,7 +9,7 @@ private:
     uint8_t **data;
     size_t width, height;
 public:
-    GrayImage(size_t width, size_t height);
+    GrayImage(size_t width, size_t height, uint8_t bg = 255);
     ~GrayImage();
 
     inline void setPixel(int x, int y, uint8_t val) {
@@ -17,7 +17,7 @@ public:
     }
 
     inline void setPixel(int x, int y) {
-        setPixel(x, y, 255);
+        setPixel(x, y, 0);
     }
 
     QImage toQImage();

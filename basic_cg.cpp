@@ -1,7 +1,8 @@
 #include "basic_cg.h"
 #include <cstdint>
+#include <algorithm>
 
-GrayImage::GrayImage(size_t width, size_t height)
+GrayImage::GrayImage(size_t width, size_t height, uint8_t bg)
 {
     this->width = width;
     this->height = height;
@@ -9,6 +10,7 @@ GrayImage::GrayImage(size_t width, size_t height)
 
     for (size_t i=0; i<height; i++) {
         this->data[i] = new uint8_t[width]();
+        std::fill_n(this->data[i], width, bg);
     }
 }
 
