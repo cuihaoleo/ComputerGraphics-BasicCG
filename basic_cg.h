@@ -27,5 +27,7 @@ public:
 void lineBresenham(GrayImage &im, int xa, int ya, int xb, int yb);
 // Circle-drawing algorithm
 void circleMidpoint(GrayImage &im, int cx, int cy, int radius);
+// Ellipse-drawing algorithm
+void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry);
 
 #endif // BASIC_CG_H

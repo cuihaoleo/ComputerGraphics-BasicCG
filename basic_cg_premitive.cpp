@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <algorithm>
+#include <cmath>
 
 
 void lineBresenham(GrayImage &im, int xa, int ya, int xb, int yb) {
@@ -70,4 +71,52 @@ void circleMidpoint(GrayImage &im, int cx, int cy, int radius) {
             p += 2 * (dx - dy) + 1;
         }
     } while (dx <= dy);
+}
+
+
+void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry) {
+    const int rx2 = rx * rx;
+    const int ry2 = ry * ry;
+    const int twoRx2 = 2 * rx2, twoRy2 = 2 * ry2;
+
+    int x = 0, y = ry;
+    int p, px = 0, py = twoRx2 * y;
+
+    p = ry2 - rx2 * ry + (int)std::round(0.25 * rx2);
+    while (px <= py) {
+        im.setPixel(cx-x, cy+y);
+        im.setPixel(cx+x, cy+y);
+        im.setPixel(cx-x, cy-y);
+        im.setPixel(cx+x, cy-y);
+
+        x++;
+        px += twoRy2;
+
+        if (p < 0)
+            p += ry2 + px;
+        else {
+            y--;
+            py -= twoRx2;
+            p += ry2 + px - py;
+        }
+    }
+
+    p = (int)round(ry2*(x+0.5)*(x+0.5)) + rx2*(y-1)*(y-1) - rx2*ry2;
+    do {
+        im.setPixel(cx-x, cy+y);
+        im.setPixel(cx+x, cy+y);
+        im.setPixel(cx-x, cy-y);
+        im.setPixel(cx+x, cy-y);
+
+        y--;
+        py -= twoRx2;
+
+        if (p > 0)
+            p += rx2 - py;
+        else {
+            x++;
+            px += twoRy2;
+            p += rx2 - py + px;
+        }
+    } while (y >= 0);
 }
