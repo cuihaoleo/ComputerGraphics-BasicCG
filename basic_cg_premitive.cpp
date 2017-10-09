@@ -4,6 +4,9 @@
 #include <algorithm>
 #include <cmath>
 
+#include <QStack>
+#include <QPair>
+
 
 void lineBresenham(GrayImage &im, int xa, int ya, int xb, int yb) {
     int dx = xb - xa, dy = yb - ya;
@@ -119,4 +122,51 @@ void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry) {
             p += rx2 - py + px;
         }
     } while (y >= 0);
+}
+
+
+void fillingScanlineSeed(GrayImage &im, int sx, int sy, uint8_t val) {
+    uint8_t oldval = im.getPixel(sx, sy);
+    typedef QPair<int, int> Coordinate;
+    QStack<Coordinate> stack;
+
+    // move initial seed to leftmost
+    for (; im.getPixel(sx, sy) == oldval; sx--)
+        continue;
+    sx++;
+
+    stack.push(Coordinate(sx, sy));
+    while (!stack.isEmpty()) {
+        Coordinate seed = stack.pop();
+        int yy = seed.second;
+        int xLeft = seed.first, xRight;
+
+        if (im.getPixel(xLeft, yy) != oldval)
+            continue;
+
+        // go right
+        for (xRight=xLeft;
+             im.getPixel(xRight, yy) == oldval;
+             xRight++)
+            continue;
+        xRight--;
+
+        for (int x=xLeft; x<=xRight; x++)
+            im.setPixel(x, yy, val);
+
+        // find next seed point
+        for (int yd = -1; yd <= 1; yd += 2) {
+            int x = xRight;
+            while (x >= xLeft) {
+                if (im.getPixel(x, yy+yd) == oldval) {
+                    while (im.getPixel(x, yy+yd) == oldval)
+                        x--;
+                    stack.push(Coordinate(++x, yy+yd));
+                }
+                else
+                    while (x >= xLeft && im.getPixel(x, yd) != oldval)
+                        x--;
+            }
+        }
+    }
 }

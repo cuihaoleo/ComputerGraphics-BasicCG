@@ -98,5 +98,27 @@ void MainWindow::on_actionEllipse_triggered()
     ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
     ui->graphicsView->show();
 
-    ui->labelTitle->setText("Midpoint circle algorithm");
+    ui->labelTitle->setText("Midpoint ellipse algorithm");
+}
+
+void MainWindow::on_actionFilling_triggered()
+{
+    const int canvas_height = 256;
+    const int canvas_width = 256;
+
+    GrayImage im(canvas_width, canvas_height);
+    int cx = canvas_height / 2, cy = canvas_width / 2;
+
+    ellipseMidpoint(im, cx, cy, 100, 64);
+    fillingScanlineSeed(im, cx, cy, 127);
+
+    QImage qi = im.toQImage();
+    QGraphicsScene* scene = new QGraphicsScene;
+
+    scene->addPixmap(QPixmap::fromImage(qi));
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+    ui->graphicsView->show();
+
+    ui->labelTitle->setText("Scanline seed filling algorithm");
 }

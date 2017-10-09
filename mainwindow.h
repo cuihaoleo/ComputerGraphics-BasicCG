@@ -22,6 +22,8 @@ private slots:
 
     void on_actionEllipse_triggered();
 
+    void on_actionFilling_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
