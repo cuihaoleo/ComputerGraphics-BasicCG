@@ -161,10 +161,10 @@ void fillingScanlineSeed(GrayImage &im, int sx, int sy, uint8_t val) {
                 if (im.getPixel(x, yy+yd) == oldval) {
                     while (im.getPixel(x, yy+yd) == oldval)
                         x--;
-                    stack.push(Coordinate(++x, yy+yd));
+                    stack.push(Coordinate(1+x, yy+yd));
                 }
                 else
-                    while (x >= xLeft && im.getPixel(x, yd) != oldval)
+                    while (x >= xLeft && im.getPixel(x, yy+yd) != oldval)
                         x--;
             }
         }
