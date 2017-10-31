@@ -27,11 +27,13 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     basic_cg.cpp \
-    basic_cg_premitive.cpp
+    basic_cg_premitive.cpp \
+    pixmapscene.cpp
 
 HEADERS += \
         mainwindow.h \
-    basic_cg.h
+    basic_cg.h \
+    pixmapscene.h
 
 FORMS += \
         mainwindow.ui

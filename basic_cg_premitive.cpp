@@ -85,6 +85,11 @@ void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry) {
     int x = 0, y = ry;
     int p, px = 0, py = twoRx2 * y;
 
+    if (rx == 0 || ry == 0) {
+        lineBresenham(im, cx + rx, cy + ry, cx - rx, cy - ry);
+        return;
+    }
+
     p = ry2 - rx2 * ry + (int)std::round(0.25 * rx2);
     while (px <= py) {
         im.setPixel(cx-x, cy+y);

@@ -16,14 +16,9 @@ public:
         return data[y][x];
     }
 
-    inline void setPixel(int x, int y, uint8_t val) {
-        data[y][x] = val;
-    }
-
-    inline void setPixel(int x, int y) {
-        setPixel(x, y, 0);
-    }
-
+    void setPixel(int x, int y, uint8_t val=0);
+    size_t H() { return height; };
+    size_t W() { return width; };
     QImage toQImage() const;
 };
 

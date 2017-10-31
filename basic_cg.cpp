@@ -23,6 +23,12 @@ GrayImage::~GrayImage()
     delete[] data;
 }
 
+void GrayImage::setPixel(int x, int y, uint8_t val) {
+    if (x >= 0 && (size_t)x < width
+            && y >= 0 && (size_t)y < height)
+        data[y][x] = val;
+}
+
 QImage GrayImage::toQImage() const {
     QImage qi(width, height, QImage::Format_Grayscale8);
 
