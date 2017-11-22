@@ -78,15 +78,14 @@ void PixmapScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 void PixmapScene::drawLine(GrayImage &image, QList<QPoint> points, void *args) {
     (void)args;
-    lineBresenham(image, points[0].x(), points[0].y(),
-                         points[1].x(), points[1].y());
+    lineBresenham(image, points[0], points[1]);
 }
 
 void PixmapScene::drawCircle(GrayImage &image, QList<QPoint> points, void *args) {
     int radius = std::hypot(points[1].x() - points[0].x(),
                             points[1].y() - points[0].y());
     (void)args;
-    circleMidpoint(image, points[0].x(), points[0].y(), radius);
+    circleMidpoint(image, points[0], radius);
 }
 
 void PixmapScene::drawEllipse(GrayImage &image, QList<QPoint> points, void *args) {
@@ -101,7 +100,7 @@ void PixmapScene::drawEllipse(GrayImage &image, QList<QPoint> points, void *args
     auto thresh = qMax(image.H(), image.W());
 
     if (rx >= 0 && ry >= 0 && rx < thresh && ry < thresh)
-        ellipseMidpoint(image, cx, cy, rx, ry);
+        ellipseMidpoint(image, points[0], rx, ry);
 
     (void)args;
 }

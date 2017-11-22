@@ -53,8 +53,8 @@ void MainWindow::on_actionFilling_triggered()
     GrayImage im(canvas_width, canvas_height);
     int cx = canvas_height / 2, cy = canvas_width / 2;
 
-    ellipseMidpoint(im, cx, cy, 100, 64);
-    fillingScanlineSeed(im, cx, cy, 127);
+    ellipseMidpoint(im, QPoint(cx, cy), 100, 64);
+    fillingScanlineSeed(im, QPoint(cx, cy), 127);
 
     QImage qi = im.toQImage();
     QGraphicsScene* scene = new QGraphicsScene;

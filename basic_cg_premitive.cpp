@@ -8,7 +8,8 @@
 #include <QPair>
 
 
-void lineBresenham(GrayImage &im, int xa, int ya, int xb, int yb) {
+void lineBresenham(GrayImage &im, const QPoint &a, const QPoint &b) {
+    int xa=a.x(), ya=a.y(), xb=b.x(), yb=b.y();
     int dx = xb - xa, dy = yb - ya;
     int adx = std::abs(dx), ady = std::abs(dy);
     int rflag = adx < ady;  // whether |m| = |dy/dx| > 1
@@ -52,7 +53,8 @@ void lineBresenham(GrayImage &im, int xa, int ya, int xb, int yb) {
 }
 
 
-void circleMidpoint(GrayImage &im, int cx, int cy, int radius) {
+void circleMidpoint(GrayImage &im, const QPoint &center, int radius) {
+    const int cx = center.x(), cy = center.y();
     int dx = 0, dy = radius;
     int p = 1 - radius;
 
@@ -77,7 +79,8 @@ void circleMidpoint(GrayImage &im, int cx, int cy, int radius) {
 }
 
 
-void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry) {
+void ellipseMidpoint(GrayImage &im, const QPoint &center, int rx, int ry) {
+    const int cx = center.x(), cy = center.y();
     const int rx2 = rx * rx;
     const int ry2 = ry * ry;
     const int twoRx2 = 2 * rx2, twoRy2 = 2 * ry2;
@@ -86,7 +89,7 @@ void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry) {
     int p, px = 0, py = twoRx2 * y;
 
     if (rx == 0 || ry == 0) {
-        lineBresenham(im, cx + rx, cy + ry, cx - rx, cy - ry);
+        lineBresenham(im, QPoint(cx + rx, cy + ry), QPoint(cx - rx, cy - ry));
         return;
     }
 
@@ -130,7 +133,8 @@ void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry) {
 }
 
 
-void fillingScanlineSeed(GrayImage &im, int sx, int sy, uint8_t val) {
+void fillingScanlineSeed(GrayImage &im, const QPoint &seed, uint8_t val) {
+    int sx = seed.x(), sy = seed.y();
     uint8_t oldval = im.getPixel(sx, sy);
     typedef QPair<int, int> Coordinate;
     QStack<Coordinate> stack;

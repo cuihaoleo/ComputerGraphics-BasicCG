@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <QImage>
+#include <QPoint>
 
 class GrayImage {
 private:
@@ -23,12 +24,12 @@ public:
 };
 
 // Line-drawing algorithm
-void lineBresenham(GrayImage &im, int xa, int ya, int xb, int yb);
+void lineBresenham(GrayImage &im, const QPoint &a, const QPoint &b);
 // Circle-drawing algorithm
-void circleMidpoint(GrayImage &im, int cx, int cy, int radius);
+void circleMidpoint(GrayImage &im, const QPoint &center, int radius);
 // Ellipse-drawing algorithm
-void ellipseMidpoint(GrayImage &im, int cx, int cy, int rx, int ry);
+void ellipseMidpoint(GrayImage &im, const QPoint &center, int rx, int ry);
 // Filled-area algorithm
-void fillingScanlineSeed(GrayImage &im, int sx, int sy, uint8_t val);
+void fillingScanlineSeed(GrayImage &im, const QPoint &seed, uint8_t val);
 
 #endif // BASIC_CG_H
