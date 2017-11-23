@@ -28,6 +28,16 @@ private slots:
 
     void on_actionFilling_triggered();
 
+    void on_action3rdBezier_triggered();
+
+    void on_actionBspline_triggered();
+
+    void on_actionKoch_triggered();
+
+    void on_actionMandelbrot_triggered();
+
+    void on_actionJulia_triggered();
+
 protected:
     virtual void showEvent(QShowEvent* event);
 

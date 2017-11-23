@@ -10,6 +10,7 @@ QMap<DrawMode, int> PixmapScene::MODE_PARAM = {
     { DrawMode::DRAW_LINE, 2 },
     { DrawMode::DRAW_CIRCLE, 2 },
     { DrawMode::DRAW_ELLIPSE, 3 },
+    { DrawMode::CURVE_3RD_BEZIER, 4 },
 };
 
 QMap<DrawMode, void (*)(GrayImage &image, QList <QPoint> points, void *args)> PixmapScene::MODE_FUNC = {
@@ -17,6 +18,7 @@ QMap<DrawMode, void (*)(GrayImage &image, QList <QPoint> points, void *args)> Pi
     { DrawMode::DRAW_LINE, PixmapScene::drawLine },
     { DrawMode::DRAW_CIRCLE, PixmapScene::drawCircle },
     { DrawMode::DRAW_ELLIPSE, PixmapScene::drawEllipse },
+    { DrawMode::CURVE_3RD_BEZIER, PixmapScene::curve3rdBezier },
 };
 
 
@@ -103,4 +105,9 @@ void PixmapScene::drawEllipse(GrayImage &image, QList<QPoint> points, void *args
         ellipseMidpoint(image, points[0], rx, ry);
 
     (void)args;
+}
+
+void PixmapScene::curve3rdBezier(GrayImage &image, QList <QPoint> points, void *args) {
+    (void)args;
+    thirdOrderBezier(image, points[0], points[1], points[2], points[3]);
 }

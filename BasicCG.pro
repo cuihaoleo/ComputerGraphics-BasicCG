@@ -28,7 +28,9 @@ SOURCES += \
         mainwindow.cpp \
     basic_cg.cpp \
     basic_cg_premitive.cpp \
-    pixmapscene.cpp
+    pixmapscene.cpp \
+    basic_cg_curve.cpp \
+    basic_cg_fractal.cpp
 
 HEADERS += \
         mainwindow.h \

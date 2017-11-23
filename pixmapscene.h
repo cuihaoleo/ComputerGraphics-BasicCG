@@ -13,6 +13,7 @@ enum DrawMode {
     DRAW_CIRCLE = 2,
     DRAW_ELLIPSE = 3,
     FILLING = 4,
+    CURVE_3RD_BEZIER = 5,
 };
 
 class PixmapScene : public QGraphicsScene
@@ -30,6 +31,7 @@ public:
     static void drawLine(GrayImage &image, QList <QPoint> points, void *args);
     static void drawCircle(GrayImage &image, QList <QPoint> points, void *args);
     static void drawEllipse(GrayImage &image, QList <QPoint> points, void *args);
+    static void curve3rdBezier(GrayImage &image, QList <QPoint> points, void *args);
 
 private:
     QList<QPoint> mPoints;

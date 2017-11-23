@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <QImage>
 #include <QPoint>
+#include <complex>
+#include <QDebug>
 
 class GrayImage {
 private:
@@ -18,10 +20,16 @@ public:
     }
 
     void setPixel(int x, int y, uint8_t val=0);
-    size_t H() { return height; };
-    size_t W() { return width; };
+    inline void setPixel(const QPoint &p, uint8_t val=0) {
+        setPixel(p.x(), p.y(), val);
+    }
+
+    size_t H() { return height; }
+    size_t W() { return width; }
     QImage toQImage() const;
 };
+
+bool isEightNeighbor(const QPoint &a, const QPoint &b);
 
 // Line-drawing algorithm
 void lineBresenham(GrayImage &im, const QPoint &a, const QPoint &b);
@@ -31,5 +39,29 @@ void circleMidpoint(GrayImage &im, const QPoint &center, int radius);
 void ellipseMidpoint(GrayImage &im, const QPoint &center, int rx, int ry);
 // Filled-area algorithm
 void fillingScanlineSeed(GrayImage &im, const QPoint &seed, uint8_t val);
+
+// Third order Bezier curve with De Casteljau's algorithm
+void thirdOrderBezier(GrayImage &im,
+                      const QPoint &p1,
+                      const QPoint &p2,
+                      const QPoint &p3,
+                      const QPoint &p4);
+// B-Spline
+void bSpline(GrayImage &im,
+             QList<QPoint> &control, QList<double> &ubreak,
+             int ndiv);
+
+void snowflakeKoch(GrayImage &im, const QPoint &start, double step, double theta);
+
+void paintMandelbrot(GrayImage &im,
+                     std::complex<double> z0,
+                     std::complex<double> c0,
+                     std::complex<double> c1,
+                     int max_round);
+void paintJulia(GrayImage &im,
+                     std::complex<double> c0,
+                     std::complex<double> z0,
+                     std::complex<double> z1,
+                     int max_round);
 
 #endif // BASIC_CG_H

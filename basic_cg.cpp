@@ -1,5 +1,6 @@
 #include "basic_cg.h"
 #include <cstdint>
+#include <cstdlib>
 #include <algorithm>
 
 GrayImage::GrayImage(size_t width, size_t height, uint8_t bg)
@@ -41,4 +42,10 @@ QImage GrayImage::toQImage() const {
     }
 
     return qi;
+}
+
+bool isEightNeighbor(const QPoint &a, const QPoint &b) {
+    int diff_x = std::abs(a.x() - b.x());
+    int diff_y = std::abs(a.y() - b.y());
+    return (qMax(diff_x, diff_y) == 1) && (diff_x || diff_y);
 }

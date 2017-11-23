@@ -26,7 +26,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -102,7 +102,7 @@
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>31</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPrimitives">
@@ -118,7 +118,7 @@
     <property name="title">
      <string>C&amp;urves</string>
     </property>
-    <addaction name="actionBezier"/>
+    <addaction name="action3rdBezier"/>
     <addaction name="actionBspline"/>
    </widget>
    <widget class="QMenu" name="menuFractal">
@@ -137,52 +137,52 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionLine">
    <property name="text">
-    <string>Line</string>
+    <string>&amp;Line</string>
    </property>
   </action>
   <action name="actionCircle">
    <property name="text">
-    <string>Circle</string>
+    <string>&amp;Circle</string>
    </property>
   </action>
   <action name="actionEllipse">
    <property name="text">
-    <string>Ellipse</string>
+    <string>&amp;Ellipse</string>
    </property>
   </action>
   <action name="actionFilling">
    <property name="text">
-    <string>Filling</string>
+    <string>&amp;Filling</string>
    </property>
   </action>
-  <action name="actionBezier">
+  <action name="action3rdBezier">
    <property name="text">
-    <string>Bezier curve</string>
+    <string>3rd Order &amp;Bezier curve</string>
    </property>
   </action>
   <action name="actionBspline">
    <property name="text">
-    <string>B-spline curve</string>
+    <string>B-&amp;spline curve</string>
    </property>
   </action>
   <action name="actionKoch">
    <property name="text">
-    <string>Koch</string>
+    <string>&amp;Koch</string>
    </property>
   </action>
   <action name="actionMandelbrot">
    <property name="text">
-    <string>Mandelbrot</string>
+    <string>&amp;Mandelbrot</string>
    </property>
   </action>
   <action name="actionJulia">
    <property name="text">
-    <string>Julia set</string>
+    <string>&amp;Julia set</string>
    </property>
   </action>
   <action name="actionFerns">
    <property name="text">
-    <string>Ferns</string>
+    <string>&amp;Ferns</string>
    </property>
   </action>
  </widget>
