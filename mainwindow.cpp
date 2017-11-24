@@ -163,3 +163,21 @@ void MainWindow::on_actionJulia_triggered()
     ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
     ui->graphicsView->show();
 }
+
+void MainWindow::on_actionFerns_triggered()
+{
+    const int canvas_height = 512;
+    const int canvas_width = 512;
+
+    GrayImage im(canvas_width, canvas_height);
+
+    paintFern(im, QPoint(100, 100), 300, 50000);
+
+    QImage qi = im.toQImage();
+    QGraphicsScene* scene = new QGraphicsScene;
+
+    scene->addPixmap(QPixmap::fromImage(qi));
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+    ui->graphicsView->show();
+}

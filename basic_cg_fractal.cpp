@@ -95,12 +95,17 @@ void paintJulia(GrayImage &im,
 }
 
 void paintFern(GrayImage &im, const QPoint &start, double size, int pts) {
+    static const double X_LEFT = -2.1820, X_RIGHT = 2.6558;
+    static const double Y_DOWN = 0, Y_UP = 9.9983;
+    static const double STD_SIZE = qMax(X_RIGHT-X_LEFT, Y_UP-Y_DOWN);
+
     double desc[4][7] = {
         { 0.01,  0,     0,     0,     0.16,  0,     0,   },
         { 0.85,  0.85,  0.04,  -0.04, 0.85,  0,     1.60 },
         { 0.07,  0.20,  -0.26, 0.23,  0.22,  0,     1.60 },
         { 0.07,  -0.15, 0.28,  0.26,  0.24,  0,     0.44 }};
     double x = 0, y = 0;
+    double scale = size / STD_SIZE;
 
     std::default_random_engine generator;
     std::uniform_real_distribution<double> distribution(0.0, 1.0);
@@ -110,8 +115,17 @@ void paintFern(GrayImage &im, const QPoint &start, double size, int pts) {
         int choice;
 
         for (choice=0; choice<4 && dice>0; choice++)
-            dice -= desc[i][0];
+            dice -= desc[choice][0];
 
-        double *para = desc[choice];
+        double *para = desc[choice-1];
+        double nx = para[1]*x + para[2]*y + para[5];
+        double ny = para[3]*x + para[4]*y + para[6];
+
+        int map_x = nx * scale, map_y = ny * scale;
+        QPoint point = start + QPoint(map_x, map_y);
+        im.setPixel(point);
+
+        x = nx;
+        y = ny;
     }
 }

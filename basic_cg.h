@@ -1,6 +1,9 @@
 #ifndef BASIC_CG_H
 #define BASIC_CG_H
 
+// Use math constants in Visual Studio
+#define _USE_MATH_DEFINES
+
 #include <cstdint>
 #include <QImage>
 #include <QPoint>
@@ -63,5 +66,7 @@ void paintJulia(GrayImage &im,
                      std::complex<double> z0,
                      std::complex<double> z1,
                      int max_round);
+
+void paintFern(GrayImage &im, const QPoint &start, double size, int pts);
 
 #endif // BASIC_CG_H

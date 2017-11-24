@@ -31,10 +31,10 @@ void GrayImage::setPixel(int x, int y, uint8_t val) {
 }
 
 QImage GrayImage::toQImage() const {
-    QImage qi(width, height, QImage::Format_Grayscale8);
+    QImage qi((int)width, (int)height, QImage::Format_Grayscale8);
 
     for (size_t i=0; i<height; i++) {
-        uchar *line = qi.scanLine(i);
+        uchar *line = qi.scanLine((int)i);
 
         for (size_t j=0; j<width; j++) {
             line[j] = data[i][j];

@@ -38,6 +38,8 @@ private slots:
 
     void on_actionJulia_triggered();
 
+    void on_actionFerns_triggered();
+
 protected:
     virtual void showEvent(QShowEvent* event);
 
