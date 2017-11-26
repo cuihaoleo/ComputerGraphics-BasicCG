@@ -40,6 +40,8 @@ private slots:
 
     void on_actionFerns_triggered();
 
+    void on_actionWorld_triggered();
+
 protected:
     virtual void showEvent(QShowEvent* event);
 

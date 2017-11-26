@@ -30,12 +30,14 @@ SOURCES += \
     basic_cg_premitive.cpp \
     pixmapscene.cpp \
     basic_cg_curve.cpp \
-    basic_cg_fractal.cpp
+    basic_cg_fractal.cpp \
+    worldmodel.cpp
 
 HEADERS += \
         mainwindow.h \
     basic_cg.h \
-    pixmapscene.h
+    pixmapscene.h \
+    worldmodel.h
 
 FORMS += \
         mainwindow.ui

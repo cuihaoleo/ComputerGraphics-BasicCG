@@ -102,7 +102,7 @@
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>30</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPrimitives">
@@ -130,9 +130,16 @@
     <addaction name="actionJulia"/>
     <addaction name="actionFerns"/>
    </widget>
+   <widget class="QMenu" name="menuTest">
+    <property name="title">
+     <string>Test</string>
+    </property>
+    <addaction name="actionWorld"/>
+   </widget>
    <addaction name="menuPrimitives"/>
    <addaction name="menuSpline"/>
    <addaction name="menuFractal"/>
+   <addaction name="menuTest"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionLine">
@@ -183,6 +190,11 @@
   <action name="actionFerns">
    <property name="text">
     <string>&amp;Ferns</string>
+   </property>
+  </action>
+  <action name="actionWorld">
+   <property name="text">
+    <string>World</string>
    </property>
   </action>
  </widget>

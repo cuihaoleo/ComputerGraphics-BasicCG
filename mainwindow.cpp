@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "worldmodel.h"
 
 #include "basic_cg.h"
 
@@ -172,6 +173,30 @@ void MainWindow::on_actionFerns_triggered()
     GrayImage im(canvas_width, canvas_height);
 
     paintFern(im, QPoint(100, 100), 300, 50000);
+
+    QImage qi = im.toQImage();
+    QGraphicsScene* scene = new QGraphicsScene;
+
+    scene->addPixmap(QPixmap::fromImage(qi));
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+    ui->graphicsView->show();
+}
+
+void MainWindow::on_actionWorld_triggered()
+{
+    WorldObject mesh;
+    GrayImage im(1024, 1024);
+
+    mesh.addPoint(QVector3D(30, 10, 10));
+    mesh.addPoint(QVector3D(20, 30, 10));
+    mesh.addPoint(QVector3D(40, 30, 10));
+    mesh.addPoint(QVector3D(45, 15, 24));
+    mesh.addPolygon(0, 1, 2);
+    mesh.addPolygon(0, 2, 3);
+    mesh.addPolygon(0, 1, 3);
+    mesh.addPolygon(1, 2, 3);
+    mesh.toImage(im, QPointF(30, 30), QSizeF(50, 50));
 
     QImage qi = im.toQImage();
     QGraphicsScene* scene = new QGraphicsScene;
