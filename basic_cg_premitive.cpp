@@ -134,13 +134,17 @@ void ellipseMidpoint(GrayImage &im, const QPoint &center, int rx, int ry) {
 
 
 void fillingScanlineSeed(GrayImage &im, const QPoint &seed, uint8_t val) {
+    int height = im.H(), width = im.W();
     int sx = seed.x(), sy = seed.y();
     uint8_t oldval = im.getPixel(sx, sy);
     typedef QPair<int, int> Coordinate;
     QStack<Coordinate> stack;
 
+    if (oldval == val)
+        return;
+
     // move initial seed to leftmost
-    for (; im.getPixel(sx, sy) == oldval; sx--)
+    for (; sx >= 0 && im.getPixel(sx, sy) == oldval; sx--)
         continue;
     sx++;
 
@@ -154,9 +158,9 @@ void fillingScanlineSeed(GrayImage &im, const QPoint &seed, uint8_t val) {
             continue;
 
         // go right
-        for (xRight=xLeft;
-             im.getPixel(xRight, yy) == oldval;
-             xRight++)
+        for (xRight = xLeft;
+             xRight < width && im.getPixel(xRight, yy) == oldval;
+             xRight ++)
             continue;
         xRight--;
 
@@ -166,9 +170,12 @@ void fillingScanlineSeed(GrayImage &im, const QPoint &seed, uint8_t val) {
         // find next seed point
         for (int yd = -1; yd <= 1; yd += 2) {
             int x = xRight;
+
+            if (yy+yd < 0 || yy+yd >= height) continue;
+
             while (x >= xLeft) {
                 if (im.getPixel(x, yy+yd) == oldval) {
-                    while (im.getPixel(x, yy+yd) == oldval)
+                    while (x >= 0 && im.getPixel(x, yy+yd) == oldval)
                         x--;
                     stack.push(Coordinate(1+x, yy+yd));
                 }

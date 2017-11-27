@@ -12,7 +12,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    scene(new PixmapScene(QSize(256, 256)))
+    scene(new PixmapScene(QSize(512, 512)))
 {
     ui->setupUi(this);
     scene->setDrawMode(DrawMode::NONE);
@@ -34,155 +34,80 @@ void MainWindow::on_actionLine_triggered()
 {
     scene->setDrawMode(DrawMode::DRAW_LINE);
     ui->labelTitle->setText("Bresenham's line-drawing algorithm");
+    ui->labelMessage->setText("Click two endpoints to draw a line between them");
 }
 
 void MainWindow::on_actionCircle_triggered()
 {
     scene->setDrawMode(DrawMode::DRAW_CIRCLE);
     ui->labelTitle->setText("Midpoint circle algorithm");
+    ui->labelMessage->setText("First click for center. Second for radius.");
 }
 
 void MainWindow::on_actionEllipse_triggered()
 {
     scene->setDrawMode(DrawMode::DRAW_ELLIPSE);
     ui->labelTitle->setText("Midpoint ellipse algorithm");
+    ui->labelMessage->setText("First click for center. Second for bounding box.");
 }
 
 void MainWindow::on_actionFilling_triggered()
 {
-    const int canvas_height = 256;
-    const int canvas_width = 256;
-
-    GrayImage im(canvas_width, canvas_height);
-    int cx = canvas_height / 2, cy = canvas_width / 2;
-
-    ellipseMidpoint(im, QPoint(cx, cy), 100, 64);
-    fillingScanlineSeed(im, QPoint(cx, cy), 127);
-
-    QImage qi = im.toQImage();
-    QGraphicsScene* scene = new QGraphicsScene;
-
-    scene->addPixmap(QPixmap::fromImage(qi));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-    ui->graphicsView->show();
-
+    scene->setDrawMode(DrawMode::FILLING);
     ui->labelTitle->setText("Scanline seed filling algorithm");
+    ui->labelMessage->setText("Click a point inside a closed shape. I'll paint it gray.");
 }
 
 void MainWindow::on_action3rdBezier_triggered()
 {
     scene->setDrawMode(DrawMode::CURVE_3RD_BEZIER);
+    ui->labelTitle->setText("Bezier curve (3rd-order)");
+    ui->labelMessage->setText("Click 4 control points!");
 }
 
 void MainWindow::on_actionBspline_triggered()
 {
-    // bSpline
-
-    const int canvas_height = 256;
-    const int canvas_width = 256;
-
-    GrayImage im(canvas_width, canvas_height);
-
-    QList<QPoint> ctrl;
-    ctrl.append(QPoint(40, 40));
-    ctrl.append(QPoint(100, 120));
-    ctrl.append(QPoint(120, 120));
-    ctrl.append(QPoint(120, 100));
-    ctrl.append(QPoint(160, 150));
-
-    QList<double> ubreak({0, 0, 0, 0, 1, 2, 2, 2, 2});
-    bSpline(im, ctrl, ubreak, 100);
-
-    circleMidpoint(im, ctrl[0], 2);
-    circleMidpoint(im, ctrl[1], 2);
-    circleMidpoint(im, ctrl[2], 2);
-    circleMidpoint(im, ctrl[3], 2);
-    circleMidpoint(im, ctrl[4], 2);
-
-    QImage qi = im.toQImage();
-    QGraphicsScene* scene = new QGraphicsScene;
-
-    scene->addPixmap(QPixmap::fromImage(qi));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-    ui->graphicsView->show();
+    scene->setDrawMode(DrawMode::CURVE_4TH_BSPLINE);
+    ui->labelTitle->setText("B-spline curve (4th-order)");
+    ui->labelMessage->setText("Click 5 control points!");
 }
 
 void MainWindow::on_actionKoch_triggered()
 {
-    const int canvas_height = 512;
-    const int canvas_width = 512;
-
-    GrayImage im(canvas_width, canvas_height);
-
-    snowflakeKoch(im, QPoint(100, 100), 250, 0);
-
-    QImage qi = im.toQImage();
-    QGraphicsScene* scene = new QGraphicsScene;
-
-    scene->addPixmap(QPixmap::fromImage(qi));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-    ui->graphicsView->show();
+    scene->setDrawMode(DrawMode::FRACTAL_KOCH);
+    ui->labelTitle->setText("Koch snowflower");
+    ui->labelMessage->setText("Click two points. First for origin. Second for size.");
 }
 
 void MainWindow::on_actionMandelbrot_triggered()
 {
-    const int canvas_height = 512;
-    const int canvas_width = 512;
-
-    GrayImage im(canvas_width, canvas_height);
-
-    paintMandelbrot(im, std::complex<double>(0),
-                        std::complex<double>(-2, -2),
-                        std::complex<double>(2, 2), 255);
-
-    QImage qi = im.toQImage();
-    QGraphicsScene* scene = new QGraphicsScene;
-
-    scene->addPixmap(QPixmap::fromImage(qi));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-    ui->graphicsView->show();
+    scene->setDrawMode(DrawMode::INUSE);
+    paintMandelbrot(scene->getImage(),
+                    std::complex<double>(0),
+                    std::complex<double>(-2, -2),
+                    std::complex<double>(2, 2), 255);
+    scene->update();
+    ui->labelTitle->setText("Mandelbrot set");
+    ui->labelMessage->setText("z = 0");
 }
 
 void MainWindow::on_actionJulia_triggered()
 {
-    const int canvas_height = 512;
-    const int canvas_width = 512;
-
-    GrayImage im(canvas_width, canvas_height);
-
-    paintJulia(im, std::complex<double>(0.285, 0.01),
-                   std::complex<double>(-1.5, -1.5),
-                   std::complex<double>(1.5, 1.5), 100);
-
-    QImage qi = im.toQImage();
-    QGraphicsScene* scene = new QGraphicsScene;
-
-    scene->addPixmap(QPixmap::fromImage(qi));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-    ui->graphicsView->show();
+    scene->setDrawMode(DrawMode::INUSE);
+    paintJulia(scene->getImage(),
+               std::complex<double>(0.285, 0.01),
+               std::complex<double>(-1.5, -1.5),
+               std::complex<double>(1.5, 1.5), 100);
+    scene->update();
+    ui->labelTitle->setText("Julia set");
+    ui->labelMessage->setText("c = 0.285 + 0.01i");
 }
 
 void MainWindow::on_actionFerns_triggered()
 {
-    const int canvas_height = 512;
-    const int canvas_width = 512;
-
-    GrayImage im(canvas_width, canvas_height);
-
-    paintFern(im, QPoint(100, 100), 300, 50000);
-
-    QImage qi = im.toQImage();
-    QGraphicsScene* scene = new QGraphicsScene;
-
-    scene->addPixmap(QPixmap::fromImage(qi));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-    ui->graphicsView->show();
+    scene->setDrawMode(DrawMode::FRACTAL_FERN);
+    ui->labelTitle->setText("Fern");
+    ui->labelMessage->setText("Click two points. First for origin. Second for size.");
 }
 
 void MainWindow::on_actionWorld_triggered()
