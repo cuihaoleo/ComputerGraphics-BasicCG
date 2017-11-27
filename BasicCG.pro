@@ -33,7 +33,8 @@ SOURCES += \
     basic_cg_fractal.cpp \
     worldmodel.cpp \
     rscene.cpp \
-    rview.cpp
+    rview.cpp \
+    rdepthbuffer.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
     pixmapscene.h \
     worldmodel.h \
     rscene.h \
-    rview.h
+    rview.h \
+    rdepthbuffer.h
 
 FORMS += \
         mainwindow.ui

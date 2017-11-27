@@ -1,7 +1,7 @@
 #ifndef RSCENE_H
 #define RSCENE_H
 
-#include "rview.h"
+//#include "rview.h"
 
 #include <QVector>
 #include <QVector3D>

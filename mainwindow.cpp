@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "worldmodel.h"
+//#include "worldmodel.h"
+#include "rscene.h"
+#include "rview.h"
 
 #include "basic_cg.h"
 
@@ -185,19 +187,21 @@ void MainWindow::on_actionFerns_triggered()
 
 void MainWindow::on_actionWorld_triggered()
 {
-    WorldObject mesh;
+    RScene mesh;
     GrayImage im(1024, 1024);
 
     mesh.addPoint(QVector3D(30, 10, 10));
     mesh.addPoint(QVector3D(20, 30, 10));
     mesh.addPoint(QVector3D(40, 30, 10));
     mesh.addPoint(QVector3D(40, 15, 24));
-    mesh.addPolygon(0, 1, 2);
-    mesh.addPolygon(0, 2, 3);
-    mesh.addPolygon(0, 1, 3);
-    mesh.addPolygon(1, 2, 3);
+    mesh.addTriangle(0, 1, 2);
+    mesh.addTriangle(0, 2, 3);
+    mesh.addTriangle(0, 1, 3);
+    mesh.addTriangle(1, 2, 3);
 
-    mesh.toImage(im, QPointF(30, 30), QSizeF(50, 50));
+    RView view(0, 0, 0, 0);
+
+    //mesh.toImage(im, QPointF(30, 30), QSizeF(50, 50));
 
     QImage qi = im.toQImage();
     QGraphicsScene* scene = new QGraphicsScene;

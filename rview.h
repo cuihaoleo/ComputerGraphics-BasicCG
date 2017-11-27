@@ -9,17 +9,19 @@
 class RView
 {
 private:
-    QVector3D viewPoint;
-    // assume view direction is towards world origin point
-    QVector3D viewUp;
-    bool usePerspectiveProjection;
-
-    QVector<QVector<int>> depthBuffer;
-    QVector<QVector<int>> meshBuffer;
+    QVector3D normalVector;
+    QMatrix4x4 viewTransform;
+    QMatrix4x4 viewTransformR;
+    ZBuffer *buffer = nullptr;
 
 public:
-    RView(double radius, double alpha, double beta, double gamma);
-    void lookAt(RSence scene);
+    RView(QVector3D viewPoint, double angle);
+    ~RView() {
+        if (buffer != nullptr) delete buffer;
+    }
+    void RView::lookAt(RScene scene, const QSize &bufferSize, double scale);
 };
+
+
 
 #endif // RVIEW_H
