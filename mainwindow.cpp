@@ -187,19 +187,25 @@ void MainWindow::on_actionFerns_triggered()
 
 void MainWindow::on_actionWorld_triggered()
 {
+    static double mem = 0;
     RScene mesh;
     GrayImage im(1024, 1024);
 
-    mesh.addPoint(QVector3D(30, 10, 10));
-    mesh.addPoint(QVector3D(20, 30, 10));
-    mesh.addPoint(QVector3D(40, 30, 10));
-    mesh.addPoint(QVector3D(40, 15, 24));
+    mesh.addPoint(QVector3D(0, 1, 0));
+    mesh.addPoint(QVector3D(0, -1, 1));
+    mesh.addPoint(QVector3D(1, -1, -1));
+    mesh.addPoint(QVector3D(-1, -1, -1));
     mesh.addTriangle(0, 1, 2);
     mesh.addTriangle(0, 2, 3);
     mesh.addTriangle(0, 1, 3);
     mesh.addTriangle(1, 2, 3);
 
-    RView view(0, 0, 0, 0);
+    //double r = 60;
+    //RView view(QVector3D(r*std::sin(mem), 0, -r*std::cos(mem)), 0.0);
+    mem += 0.1;
+    RView view(QVector3D(2, -1, -2), 0.0);
+    view.lookAt(mesh, QSize(1024, 1024));
+    view.toDepthImage(im);
 
     //mesh.toImage(im, QPointF(30, 30), QSizeF(50, 50));
 
