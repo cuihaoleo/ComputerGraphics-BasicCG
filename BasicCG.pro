@@ -31,7 +31,6 @@ SOURCES += \
     pixmapscene.cpp \
     basic_cg_curve.cpp \
     basic_cg_fractal.cpp \
-    worldmodel.cpp \
     rscene.cpp \
     rview.cpp \
     rdepthbuffer.cpp
@@ -40,7 +39,6 @@ HEADERS += \
         mainwindow.h \
     basic_cg.h \
     pixmapscene.h \
-    worldmodel.h \
     rscene.h \
     rview.h \
     rdepthbuffer.h
