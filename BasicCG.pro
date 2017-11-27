@@ -31,13 +31,17 @@ SOURCES += \
     pixmapscene.cpp \
     basic_cg_curve.cpp \
     basic_cg_fractal.cpp \
-    worldmodel.cpp
+    worldmodel.cpp \
+    rscene.cpp \
+    rview.cpp
 
 HEADERS += \
         mainwindow.h \
     basic_cg.h \
     pixmapscene.h \
-    worldmodel.h
+    worldmodel.h \
+    rscene.h \
+    rview.h
 
 FORMS += \
         mainwindow.ui

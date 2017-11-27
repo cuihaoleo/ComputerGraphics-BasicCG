@@ -138,9 +138,9 @@ void WorldObject::toImage(GrayImage &im, const QPointF &view_center, const QSize
         for (int x=0; x<width; x++) {
             double zval = sbuf[x];
             if (zval < 25)
-                im.setPixel(QPoint(x, y), 10*int(zval));
+                im.setPixel(QPoint(x, y), 255 - 10*zval);
             else
-                im.setPixel(QPoint(x, y), 255);
+                im.setPixel(QPoint(x, y), 0);
         }
     }
 }

@@ -191,11 +191,12 @@ void MainWindow::on_actionWorld_triggered()
     mesh.addPoint(QVector3D(30, 10, 10));
     mesh.addPoint(QVector3D(20, 30, 10));
     mesh.addPoint(QVector3D(40, 30, 10));
-    mesh.addPoint(QVector3D(45, 15, 24));
+    mesh.addPoint(QVector3D(40, 15, 24));
     mesh.addPolygon(0, 1, 2);
     mesh.addPolygon(0, 2, 3);
     mesh.addPolygon(0, 1, 3);
     mesh.addPolygon(1, 2, 3);
+
     mesh.toImage(im, QPointF(30, 30), QSizeF(50, 50));
 
     QImage qi = im.toQImage();

@@ -5,6 +5,8 @@
 
 #include <QVector>
 #include <QVector3D>
+#include <QVector4D>
+
 #include <QPoint>
 #include <QPointF>
 #include <QSize>
