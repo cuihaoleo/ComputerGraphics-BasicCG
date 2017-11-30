@@ -32,7 +32,7 @@ QMap<DrawMode, void (*)(GrayImage &image, QList <QPoint> points, void *args)> Pi
 
 PixmapScene::PixmapScene(QSize pixmapSize, QObject *parent):
     QGraphicsScene(parent),
-    mImage(pixmapSize.height(), pixmapSize.width())
+    mImage(pixmapSize.width(), pixmapSize.height())
 {
     this->setBackgroundBrush(Qt::gray);
     mPixmapItem = addPixmap(QPixmap::fromImage(mImage.toQImage()));
@@ -51,7 +51,7 @@ void PixmapScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 void PixmapScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    qDebug() << Q_FUNC_INFO << mouseEvent->scenePos();
+    //qDebug() << Q_FUNC_INFO << mouseEvent->scenePos();
     QGraphicsScene::mouseMoveEvent(mouseEvent);
 }
 
@@ -78,6 +78,7 @@ void PixmapScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if (mPoints.size() >= n_param) {
             qDebug() << Q_FUNC_INFO << "Draw!";
             MODE_FUNC[mDrawMode](mImage, mPoints, nullptr);
+            mPoints.clear();
             this->update();
         }
     }

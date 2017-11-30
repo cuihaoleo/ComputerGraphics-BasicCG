@@ -132,9 +132,10 @@
    </widget>
    <widget class="QMenu" name="menuClear">
     <property name="title">
-     <string>Clear</string>
+     <string>Other</string>
     </property>
     <addaction name="actionClear"/>
+    <addaction name="actionSave"/>
    </widget>
    <addaction name="menuPrimitives"/>
    <addaction name="menuSpline"/>
@@ -195,6 +196,11 @@
   <action name="actionClear">
    <property name="text">
     <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
    </property>
   </action>
  </widget>

@@ -1,10 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#include "worldmodel.h"
-#include "rscene.h"
-#include "rview.h"
 
 #include "basic_cg.h"
+
+#include <QFileDialog>
 
 #include <cmath>
 #include <cstdint>
@@ -12,7 +11,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    scene(new PixmapScene(QSize(400, 600)))
+    scene(new PixmapScene(QSize(600, 400)))
 {
     ui->setupUi(this);
     scene->setDrawMode(DrawMode::NONE);
@@ -117,4 +116,16 @@ void MainWindow::on_actionClear_triggered()
      scene->update();
      ui->labelTitle->setText("Clear everything");
      ui->labelMessage->setText("Nothing here");
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    QString path = QFileDialog::getSaveFileName(this,
+            tr("Save Address Book"), "", tr("Portable Network Graphics (*.png)"));
+
+    if (!path.endsWith(".png"))
+        path += ".png";
+
+    QImage image = scene->getImage().toQImage();
+    image.save(path, "PNG");
 }
