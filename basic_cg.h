@@ -27,6 +27,8 @@ public:
         setPixel(p.x(), p.y(), val);
     }
 
+    void clear(uint8_t bg = 255);
+
     size_t H() { return height; }
     size_t W() { return width; }
     QImage toQImage() const;

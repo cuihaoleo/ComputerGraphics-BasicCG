@@ -7,6 +7,7 @@
 
 QMap<DrawMode, int> PixmapScene::MODE_PARAM = {
     { DrawMode::NONE, -1 },
+    { DrawMode::INUSE, -1 },
     { DrawMode::DRAW_LINE, 2 },
     { DrawMode::DRAW_CIRCLE, 2 },
     { DrawMode::DRAW_ELLIPSE, 2 },

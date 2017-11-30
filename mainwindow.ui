@@ -130,16 +130,16 @@
     <addaction name="actionJulia"/>
     <addaction name="actionFerns"/>
    </widget>
-   <widget class="QMenu" name="menuTest">
+   <widget class="QMenu" name="menuClear">
     <property name="title">
-     <string>Test</string>
+     <string>Clear</string>
     </property>
-    <addaction name="actionWorld"/>
+    <addaction name="actionClear"/>
    </widget>
    <addaction name="menuPrimitives"/>
    <addaction name="menuSpline"/>
    <addaction name="menuFractal"/>
-   <addaction name="menuTest"/>
+   <addaction name="menuClear"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionLine">
@@ -192,9 +192,9 @@
     <string>&amp;Ferns</string>
    </property>
   </action>
-  <action name="actionWorld">
+  <action name="actionClear">
    <property name="text">
-    <string>World</string>
+    <string>Clear</string>
    </property>
   </action>
  </widget>

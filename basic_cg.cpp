@@ -30,6 +30,12 @@ void GrayImage::setPixel(int x, int y, uint8_t val) {
         data[y][x] = val;
 }
 
+void GrayImage::clear(uint8_t bg)
+{
+    for (size_t i=0; i<height; i++)
+        std::fill_n(this->data[i], width, bg);
+}
+
 QImage GrayImage::toQImage() const {
     QImage qi((int)width, (int)height, QImage::Format_Grayscale8);
 
